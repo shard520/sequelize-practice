@@ -1,18 +1,19 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../db/connection');
 
-const Movie = sequelize.define('Movie', {
-  title: {
+const Genre = sequelize.define('Genre', {
+  genreName: {
     type: DataTypes.STRING,
     allowNull: false,
     unique: true,
   },
-  rating: {
+  genreID: {
     type: DataTypes.INTEGER,
-    validate: {
-      max: 10,
-    },
+    primaryKey: true,
+    allowNull: false,
+    autoIncrement: true,
+    unique: true,
   },
 });
 
-module.exports = Movie;
+module.exports = Genre;
