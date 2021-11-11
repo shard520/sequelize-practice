@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^10.0.0",
+    "mysql2": "^2.3.3-rc.0",
     "sequelize": "^6.9.0",
     "yargs": "^17.2.1"
   }
