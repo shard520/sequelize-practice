@@ -3,6 +3,7 @@
 - [Movies](#Movies)
 - [Actors](#Actors)
 - [Genres](#Genres)
+- [ER Diagram](#ER-Diagram)
 
 ---
 
@@ -77,3 +78,11 @@ To delete an actor:
 All genre commands work the same as the commands for actors, just replace Actor with Genre, eg:
 
 `node src/app.js findGenre --genreName="Comedy"`
+
+---
+
+## ER Diagram
+
+<p align="center">
+	<img alt="DB ER Diagram" src="Movies-DB-ER-Diagram.png" width="75%">
+</p>
