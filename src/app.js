@@ -1,9 +1,9 @@
 require('./db/connection');
 const yargs = require('yargs');
-
-const Movie = require('./movie/movie.model');
 const Actor = require('./actor/actor.model');
 const Genre = require('./genre/genre.model');
+const Movie = require('./movie/movie.model');
+
 const {
   addActor,
   listActors,
@@ -18,17 +18,59 @@ const {
   updateGenre,
   deleteGenre,
 } = require('./genre/genre.methods');
+const {
+  addMovie,
+  listMovies,
+  findMovie,
+  searchActor,
+  searchGenre,
+  searchRating,
+  updateMovie,
+  deleteMovie,
+} = require('./movie/movie.methods');
 
-Actor.hasMany(Movie);
-Movie.belongsTo(Actor);
-Genre.hasMany(Movie);
-Movie.belongsTo(Genre);
-
-const app = () => {
+const app = async () => {
   const command = process.argv[2];
   const argv = yargs.argv;
 
-  if (command === 'addActor') {
+  await Actor.sync();
+  await Genre.sync();
+  await Movie.sync();
+
+  Actor.Movie = Actor.hasMany(Movie, { foreignKey: 'actorID' });
+  Movie.Actor = Movie.belongsTo(Actor, {
+    foreignKey: 'actorID',
+  });
+  Genre.Movie = Genre.hasMany(Movie, { foreignKey: 'genreID' });
+  Movie.Genre = Movie.belongsTo(Genre, {
+    foreignKey: 'genreID',
+  });
+
+  if (command === 'addMovie') {
+    addMovie({
+      movieTitle: argv.movieTitle,
+      actorName: argv.actorName,
+      genreName: argv.genreName,
+      rating: argv.rating,
+    });
+  } else if (command === 'listMovies') {
+    listMovies();
+  } else if (command === 'searchMovie') {
+    findMovie({ movieTitle: argv.movieTitle });
+  } else if (command === 'searchActor') {
+    searchActor({ actorName: argv.actorName });
+  } else if (command === 'searchGenre') {
+    searchGenre({ genreName: argv.genreName });
+  } else if (command === 'searchRating') {
+    searchRating(argv.minRating);
+  } else if (command === 'updateMovie') {
+    updateMovie(argv.movieTitle, {
+      newTitle: argv.newTitle,
+      newRating: argv.newRating,
+    });
+  } else if (command === 'deleteMovie') {
+    deleteMovie({ movieTitle: argv.movieTitle });
+  } else if (command === 'addActor') {
     addActor({ actorName: argv.actorName });
   } else if (command === 'listActors') {
     listActors();

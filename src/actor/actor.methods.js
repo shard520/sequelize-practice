@@ -2,7 +2,6 @@ const Actor = require('./actor.model');
 
 exports.addActor = async actorObj => {
   try {
-    await Actor.sync();
     await Actor.create(actorObj);
     console.log('Actor added successfully.');
   } catch (err) {

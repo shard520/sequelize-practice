@@ -2,7 +2,6 @@ const Genre = require('./genre.model');
 
 exports.addGenre = async genreObj => {
   try {
-    await Genre.sync();
     await Genre.create(genreObj);
     console.log('Genre added successfully.');
   } catch (err) {
