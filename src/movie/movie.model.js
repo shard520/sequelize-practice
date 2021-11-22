@@ -2,16 +2,24 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../db/connection');
 
 const Movie = sequelize.define('Movie', {
-  title: {
+  movieTitle: {
     type: DataTypes.STRING,
     allowNull: false,
+    unique: true,
+  },
+  rating: {
+    type: DataTypes.INTEGER,
+    validate: {
+      max: 10,
+    },
   },
   actorID: {
     type: DataTypes.INTEGER,
-    references: {
-      model: Actor,
-      key: actorID,
-    },
+    references: { model: 'Actors', key: 'actorID' },
+  },
+  genreID: {
+    type: DataTypes.INTEGER,
+    references: { model: 'Genres', key: 'genreID' },
   },
 });
 
